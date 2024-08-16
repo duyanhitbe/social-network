@@ -1,6 +1,5 @@
 declare global {
-  type User = {
-    id: string;
+  type User = BaseModel & {
     name: string;
     username: string;
     email: string;

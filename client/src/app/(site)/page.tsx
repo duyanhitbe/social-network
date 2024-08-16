@@ -1,13 +1,5 @@
-import PostItem from "@app/components/post/PostItem";
+import PostPage from "@app/components/post/PostPage";
 
 export default async function Home() {
-  return (
-    <>
-      <PostItem />
-      <PostItem />
-      <PostItem />
-      <PostItem />
-      <PostItem />
-    </>
-  );
+  return <PostPage />;
 }

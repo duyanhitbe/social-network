@@ -1,5 +1,5 @@
-import { Avatar, Box, Flex, Link, Stack, Text } from "@chakra-ui/react";
-import NextLink from "next/link";
+import Link from "@app/components/shared/Link";
+import { Avatar, Box, Flex, Stack, Text } from "@chakra-ui/react";
 
 export default function Page() {
   // Sample chat rooms data
@@ -32,7 +32,7 @@ export default function Page() {
       {/* Chat Rooms List */}
       <Stack spacing="1rem">
         {chatRooms.map((room) => (
-          <Link href="/chat/1" as={NextLink}>
+          <Link href="/chat/1" key={room.id}>
             <Flex
               key={room.id}
               padding="1rem"

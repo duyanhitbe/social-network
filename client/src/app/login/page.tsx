@@ -3,8 +3,8 @@ import AuthFooter from "@app/components/auth/AuthFooter";
 import AuthHeader from "@app/components/auth/AuthHeader";
 import AuthWrapper from "@app/components/auth/AuthWrapper";
 import LoginForm from "@app/components/form/LoginForm";
-import { Flex, Link } from "@chakra-ui/react";
-import NextLink from "next/link";
+import Link from "@app/components/shared/Link";
+import { Flex } from "@chakra-ui/react";
 
 export default function Page() {
   return (
@@ -13,7 +13,7 @@ export default function Page() {
       <AuthBody>
         <LoginForm>
           <Flex justifyContent="flex-end">
-            <Link as={NextLink} href="/forgot-password" color="teal">
+            <Link href="/forgot-password" color="teal">
               Forgot password?
             </Link>
           </Flex>

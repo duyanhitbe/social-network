@@ -21,7 +21,13 @@ function ActionForm() {
     >
       <Form>
         <Stack spacing={4}>
-          <Input id="email" name="email" type="email" label="Email" />
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            label="Email"
+            isRequired
+          />
           <AuthButton>Send OTP</AuthButton>
         </Stack>
       </Form>

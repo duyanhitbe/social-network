@@ -1,5 +1,5 @@
-import { IconButton, Link } from "@chakra-ui/react";
-import NextLink from "next/link";
+import { IconButton } from "@chakra-ui/react";
+import Link from "../shared/Link";
 
 type Props = {
   icon: any;
@@ -29,7 +29,7 @@ export default function NavIcon({ icon: Icon, href, active }: Props) {
 
   if (href) {
     return (
-      <Link as={NextLink} href={href}>
+      <Link href={href}>
         <DisplayIcon />
       </Link>
     );

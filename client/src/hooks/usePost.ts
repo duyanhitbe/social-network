@@ -1,61 +1,57 @@
 import { getErrorMessage } from "@app/helpers/axios.helper";
-import { getToken, setToken } from "@app/helpers/localStorage.helper";
-import authService from "@app/services/auth.service";
+import { getToken } from "@app/helpers/localStorage.helper";
+import postService from "@app/services/post.service";
 import { useToast } from "@chakra-ui/react";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
-export const useRegister = () => {
-  const toast = useToast();
+export const useGetAllPost = () => {
+  const token = getToken();
 
-  return useMutation({
-    mutationFn: authService.register,
-    onSuccess() {
-      toast({
-        status: "success",
-        description: "Registered successfully",
-      });
-    },
-    onError(err: any) {
-      const message = getErrorMessage(err);
-      toast({
-        status: "error",
-        description: message,
-      });
-    },
+  return useQuery({
+    queryKey: ["post"],
+    queryFn: () => postService.getAll(token!),
   });
 };
 
-export const useLogin = () => {
+export const useCreatePost = () => {
   const toast = useToast();
-  const router = useRouter();
-
-  return useMutation({
-    mutationFn: authService.login,
-    onSuccess(data) {
-      setToken(data.accessToken);
-      router.replace("/");
-    },
-    onError(err: any) {
-      const message = getErrorMessage(err);
-      toast({
-        status: "error",
-        description: message,
-      });
-    },
-  });
-};
-
-export const useLogout = () => {
-  const toast = useToast();
-  const router = useRouter();
   const token = getToken();
 
   return useMutation({
-    mutationFn: () => authService.logout(token!),
-    onSuccess() {
-      router.replace("/login");
+    mutationFn: (data: CreatePostRequest) => postService.create(data, token!),
+    onError(err: any) {
+      const message = getErrorMessage(err);
+      toast({
+        status: "error",
+        description: message,
+      });
     },
+  });
+};
+
+export const useUpdatePost = () => {
+  const toast = useToast();
+  const token = getToken();
+
+  return useMutation({
+    mutationFn: (data: { id: string; data: UpdatePostRequest }) =>
+      postService.update(data.id, data.data, token!),
+    onError(err: any) {
+      const message = getErrorMessage(err);
+      toast({
+        status: "error",
+        description: message,
+      });
+    },
+  });
+};
+
+export const useDeletePost = () => {
+  const toast = useToast();
+  const token = getToken();
+
+  return useMutation({
+    mutationFn: (id: string) => postService.delete(id, token!),
     onError(err: any) {
       const message = getErrorMessage(err);
       toast({

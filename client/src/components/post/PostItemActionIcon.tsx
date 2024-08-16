@@ -3,9 +3,14 @@ import { Flex, Text } from "@chakra-ui/react";
 type Props = {
   title: string;
   icon: any;
+  count: number;
 };
 
-export default function PostItemActionIcon({ title, icon: Icon }: Props) {
+export default function PostItemActionIcon({
+  title,
+  icon: Icon,
+  count,
+}: Props) {
   return (
     <Flex
       alignItems="center"
@@ -16,7 +21,8 @@ export default function PostItemActionIcon({ title, icon: Icon }: Props) {
       _hover={{ bgColor: "teal.400", color: "white" }}
     >
       <Icon style={{ marginRight: "5px" }} />
-      <Text>{title}</Text>
+      <Text mr="0.5rem">{title}</Text>
+      <Text>{count}</Text>
     </Flex>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { getToken } from "@app/helpers/localStorage.helper";
 import { useLogout } from "@app/hooks/useAuth";
 import { Stack } from "@chakra-ui/react";
 import { FaCog, FaLock, FaSignOutAlt, FaUser } from "react-icons/fa";
@@ -10,10 +9,7 @@ export default function ProfileGroupButton() {
   const { mutate } = useLogout();
 
   const onLogout = () => {
-    const token = getToken();
-    if (token) {
-      mutate(token);
-    }
+    mutate();
   };
 
   return (

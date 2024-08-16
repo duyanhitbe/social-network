@@ -3,7 +3,6 @@ import { headers } from "next/headers";
 import { PropsWithChildren } from "react";
 import BottomNav from "../nav/BottomNav";
 import TopNav from "../nav/TopNav";
-import ButtonCreatePost from "./ButtonCreatePost";
 
 export default function CommonLayout({ children }: PropsWithChildren) {
   const heads = headers();
@@ -49,7 +48,6 @@ export default function CommonLayout({ children }: PropsWithChildren) {
         zIndex={zIndex}
         tab={tab}
       />
-      {tab === "home" && <ButtonCreatePost />}
     </>
   );
 }

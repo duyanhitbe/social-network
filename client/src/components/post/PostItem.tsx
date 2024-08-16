@@ -3,12 +3,16 @@ import PostItemBody from "./PostItemBody";
 import PostItemHeader from "./PostItemHeader";
 import PostItemWrapper from "./PostItemWrapper";
 
-export default function PostItem() {
+type Props = {
+  post: Post;
+};
+
+export default function PostItem({ post }: Props) {
   return (
     <PostItemWrapper>
-      <PostItemHeader />
-      <PostItemBody />
-      <PostItemAction />
+      <PostItemHeader post={post} />
+      <PostItemBody post={post} />
+      <PostItemAction post={post} />
     </PostItemWrapper>
   );
 }

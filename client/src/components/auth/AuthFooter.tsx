@@ -1,5 +1,5 @@
-import { Center, Link, Text } from "@chakra-ui/react";
-import NextLink from "next/link";
+import { Center, Text } from "@chakra-ui/react";
+import Link from "../shared/Link";
 
 type Props = {
   form: "login" | "register";
@@ -15,7 +15,7 @@ export default function AuthFooter({ form }: Props) {
     <Center>
       <Text>
         {questionText}{" "}
-        <Link as={NextLink} href={href} color="teal">
+        <Link href={href} color="teal">
           {actionText}
         </Link>
       </Text>
