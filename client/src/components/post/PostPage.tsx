@@ -1,19 +1,19 @@
 "use client";
 
 import { PostProvider } from "@app/context/PostContext";
-import CreateUpdatePostForm from "../form/CreateUpdatePostForm";
-import CircleButtonCreatePost from "./CircleButtonCreatePost";
+import PostActionForm from "../form/PostActionForm";
+import ButtonPostAction from "./ButtonPostAction";
 import ListPost from "./ListPost";
-import ModalCreateUpdatePost from "./ModalCreateUpdatePost";
+import ModalPostAction from "./ModalPostAction";
 
 export default function PostPage() {
   return (
     <PostProvider>
       <ListPost />
-      <ModalCreateUpdatePost>
-        <CreateUpdatePostForm />
-      </ModalCreateUpdatePost>
-      <CircleButtonCreatePost />
+      <ModalPostAction>
+        <PostActionForm />
+      </ModalPostAction>
+      <ButtonPostAction />
     </PostProvider>
   );
 }

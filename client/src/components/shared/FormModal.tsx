@@ -1,4 +1,3 @@
-import { usePostContext } from "@app/context/PostContext";
 import {
   Modal,
   ModalCloseButton,
@@ -6,19 +5,28 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { Formik } from "formik";
-import { PropsWithChildren, useMemo } from "react";
+import { Formik, FormikHelpers } from "formik";
+import { PropsWithChildren } from "react";
+import * as Yup from "yup";
 
-export default function ModalCreateUpdatePost({ children }: PropsWithChildren) {
-  const { isOpen, onClose } = usePostContext();
-  const { action, initialValues, validationSchema, onSubmit } =
-    usePostContext();
+type Props = PropsWithChildren<{
+  isOpen: boolean;
+  title: string;
+  initialValues: any;
+  validationSchema: Yup.ObjectSchema<any>;
+  onSubmit: (values: any, helpers: FormikHelpers<any>) => void;
+  onClose: () => void;
+}>;
 
-  const title = useMemo(() => {
-    if (action === "update") return "Update your post";
-    return "Create post";
-  }, [action]);
-
+export default function FormModal({
+  children,
+  isOpen,
+  title,
+  initialValues,
+  validationSchema,
+  onSubmit,
+  onClose,
+}: Props) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered size="sm">
       <ModalOverlay />

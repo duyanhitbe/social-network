@@ -20,8 +20,9 @@ function TopNav({ bgColor, color, paddingX, paddingY, zIndex, tab }: Props) {
       color={color}
       position="fixed"
       top="0"
-      left="0"
-      width="100%"
+      left={{ base: "0", lg: "50%" }}
+      width={{ base: "100%", lg: "33%" }}
+      transform={{ base: "none", lg: "translate(-50%)" }}
       alignItems="center"
       justify="center"
       height={16}

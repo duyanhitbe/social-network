@@ -29,8 +29,9 @@ function BottomNav({ bgColor, color, paddingX, paddingY, zIndex, tab }: Props) {
       color={color}
       position="fixed"
       bottom="0"
-      left="0"
-      width="100%"
+      left={{ base: "0", lg: "50%" }}
+      width={{ base: "100%", lg: "33%" }}
+      transform={{ base: "none", lg: "translate(-50%)" }}
       justify="space-between"
       borderTopRadius={20}
     >

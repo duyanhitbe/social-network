@@ -1,15 +1,15 @@
-import { useGetAllPost } from "@app/hooks/usePost";
+import { usePostContext } from "@app/context/PostContext";
 import Loading from "../shared/Loading";
 import PostItem from "./PostItem";
 
 export default function ListPost() {
-  const { data, isLoading } = useGetAllPost();
+  const { posts, isLoadingListPost } = usePostContext();
 
-  if (isLoading) return <Loading />;
+  if (isLoadingListPost) return <Loading />;
 
   return (
     <>
-      {data?.data.map((post) => (
+      {posts?.data.map((post) => (
         <PostItem key={post.id} post={post} />
       ))}
     </>

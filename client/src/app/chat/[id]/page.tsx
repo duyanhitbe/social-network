@@ -62,8 +62,13 @@ export default function Page() {
   }, [messages]);
 
   return (
-    <Flex margin="0 auto" height="100%" display="flex" flexDirection="column">
-      {/* Chat Messages */}
+    <Flex
+      maxW="500px"
+      margin="0 auto"
+      height="100%"
+      display="flex"
+      flexDirection="column"
+    >
       <VStack spacing="1rem" flex="1" overflowY="auto" padding="1rem">
         {messages.map((message) => (
           <Flex
@@ -102,7 +107,6 @@ export default function Page() {
         ))}
         <div ref={endOfMessagesRef} />
       </VStack>
-      {/* Input and Send Button */}
       <Flex
         as="form"
         onSubmit={(e) => {
@@ -111,9 +115,10 @@ export default function Page() {
         }}
         paddingX="1rem"
         position="fixed"
-        left="0"
         bottom="5.5rem"
-        width="100%"
+        left={{ base: "0", lg: "50%" }}
+        width={{ base: "100%", lg: "33%" }}
+        transform={{ base: "none", lg: "translate(-50%)" }}
       >
         <Input
           placeholder="Type a message..."

@@ -30,6 +30,8 @@ type ContextType = {
   post: Post | null;
   setPost: React.Dispatch<React.SetStateAction<Post | null>>;
   onDelete: (id: string) => void;
+  posts: PostPaginated | undefined;
+  isLoadingListPost: boolean;
 };
 
 const validationSchema = Yup.object().shape({
@@ -53,10 +55,16 @@ export const PostContext = React.createContext<ContextType>({
   post: null,
   setPost: () => {},
   onDelete: (id: string) => {},
+  posts: undefined,
+  isLoadingListPost: false,
 });
 
 export function PostProvider({ children }: PropsWithChildren) {
-  const { refetch } = useGetAllPost();
+  const {
+    data: posts,
+    isLoading: isLoadingListPost,
+    refetch,
+  } = useGetAllPost();
   const createPostMutation = useCreatePost();
   const updatePostMutation = useUpdatePost();
   const deletePostMutation = useDeletePost();
@@ -166,6 +174,8 @@ export function PostProvider({ children }: PropsWithChildren) {
         post,
         setPost,
         onDelete,
+        posts,
+        isLoadingListPost,
       }}
     >
       {children}

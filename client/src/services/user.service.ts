@@ -3,8 +3,11 @@ import { getAxiosOptions } from "@app/helpers/axios.helper";
 import axiosClient from "@app/utils/axiosClient";
 
 class UserService {
-  async getAll() {
-    const { data } = await axiosClient.get<Pagination<User>>("/user");
+  async getAll(token: string) {
+    const { data } = await axiosClient.get<Pagination<User>>(
+      "/user",
+      getAxiosOptions(token)
+    );
     return data;
   }
 
@@ -13,8 +16,7 @@ class UserService {
     return data;
   }
 
-  async getMe() {
-    const token = getTokenAction();
+  async getMe(token: string) {
     const { data } = await axiosClient.get<User>(
       `/user/me`,
       getAxiosOptions(token!)

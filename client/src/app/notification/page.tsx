@@ -31,7 +31,7 @@ export default function Page() {
   ];
 
   return (
-    <Box margin="0 auto">
+    <Box maxWidth="500px" margin="0 auto">
       {/* Notifications List */}
       {notifications.map((notification) => (
         <Flex

@@ -3,7 +3,7 @@ import axiosClient from "@app/utils/axiosClient";
 
 class PostService {
   async getAll(token: string) {
-    const { data } = await axiosClient.get<Pagination<Post>>(
+    const { data } = await axiosClient.get<PostPaginated>(
       "/post",
       getAxiosOptions(token!)
     );

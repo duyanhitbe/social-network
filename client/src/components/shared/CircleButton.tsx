@@ -1,27 +1,21 @@
-import { usePostContext } from "@app/context/PostContext";
 import { Circle } from "@chakra-ui/react";
 import { FiPlus } from "react-icons/fi";
 
-type Props = {};
+type Props = {
+  onClick: () => void;
+};
 
-export default function CircleButtonCreatePost({}: Props) {
-  const { onOpen, setAction } = usePostContext();
-
-  const onOpenModal = () => {
-    setAction("create");
-    onOpen();
-  };
-
+export default function CircleButton({ onClick }: Props) {
   return (
     <Circle
-      onClick={onOpenModal}
+      onClick={onClick}
       size="50px"
       bg="teal.500"
       shadow="lg"
       color="white"
       position="fixed"
-      right="2rem"
-      bottom="6.5rem"
+      right={{ base: "2rem", lg: "35rem" }}
+      bottom={{ base: "6.5rem" }}
       borderRadius="100%"
       cursor="pointer"
       _hover={{

@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import Input from "../shared/Input";
 import Textarea from "../shared/Textarea";
 
-export default function CreateUpdatePostForm() {
+export default function PostActionForm() {
   const { onClose } = usePostContext();
   const { isPending, action } = usePostContext();
 

@@ -9,6 +9,8 @@ declare global {
     user?: User;
   };
 
+  type PostPaginated = PostPaginated;
+
   type CreatePostRequest = {
     body: string;
     image?: string | undefined | null;

@@ -13,6 +13,7 @@ import {
 import { FaEllipsisH } from "react-icons/fa";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import Link from "../shared/Link";
+import TimeAgo from "../shared/TimeAgo";
 
 type Props = {
   post: Post;
@@ -42,7 +43,7 @@ export default function PostItemHeader({ post }: Props) {
             <Text fontWeight="bold">{post.user?.name}</Text>
           </Link>
           <Text fontSize="sm" color="gray.500">
-            2 hours ago
+            <TimeAgo time={post.createdAt} />
           </Text>
         </Box>
       </Flex>
