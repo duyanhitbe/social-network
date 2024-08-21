@@ -13,6 +13,7 @@ import {
 import { CurrentUser } from 'src/decorators/current-user.decorator';
 import { UseUserGuard } from 'src/decorators/use-user-guard.decorator';
 import { RoomInterceptor } from 'src/interceptors/room.interceptor';
+import { In } from 'typeorm';
 import { RoomMemberService } from '../room-member/room-member.service';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
@@ -46,8 +47,20 @@ export class RoomController {
   @Get()
   @UseInterceptors(RoomInterceptor)
   @SetMetadata('METHOD', 'FIND_ALL')
-  findAll() {
-    return this.roomService.findAll();
+  async findAll(@CurrentUser() user: any) {
+    const userId = user.sub;
+
+    const roomMembers = await this.roomMemberService.findByUserId(userId);
+    const roomIds = roomMembers.map((mem) => mem.roomId);
+
+    return this.roomService.findAll({
+      where: {
+        id: In(roomIds),
+      },
+      order: {
+        timestamp: 'DESC',
+      },
+    });
   }
 
   @Get(':id')

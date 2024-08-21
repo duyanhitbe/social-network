@@ -34,7 +34,7 @@ export default function PostItemHeader({ post }: Props) {
         <Avatar
           size="md"
           name={post.user?.name}
-          src="https://bit.ly/broken-link"
+          src={post.user?.avatar}
           mr="1rem"
           cursor="pointer"
         />

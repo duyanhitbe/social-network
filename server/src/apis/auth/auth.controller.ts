@@ -48,11 +48,11 @@ export class AuthController {
     const accessToken = await this.authService.generateToken(sub);
     response.cookie('sub', sub, {
       httpOnly: true,
-      secure: true,
+      secure: false,
     });
     response.cookie('access_token', accessToken, {
       httpOnly: true,
-      secure: true,
+      secure: false,
     });
     return { accessToken };
   }

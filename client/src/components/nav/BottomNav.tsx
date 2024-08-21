@@ -1,3 +1,4 @@
+import { MAX_WIDTH } from "@app/constants/style.constant";
 import { Flex } from "@chakra-ui/react";
 import { FiBell, FiHome, FiMessageSquare, FiUser } from "react-icons/fi";
 import NavIcon from "./NavIcon";
@@ -29,8 +30,9 @@ function BottomNav({ bgColor, color, paddingX, paddingY, zIndex, tab }: Props) {
       color={color}
       position="fixed"
       bottom="0"
+      w="100%"
+      maxW={MAX_WIDTH}
       left={{ base: "0", lg: "50%" }}
-      width={{ base: "100%", lg: "33%" }}
       transform={{ base: "none", lg: "translate(-50%)" }}
       justify="space-between"
       borderTopRadius={20}

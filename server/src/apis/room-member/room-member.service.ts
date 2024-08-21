@@ -12,4 +12,12 @@ export class RoomMemberService extends BaseService<RoomMember> {
   ) {
     super(roomMemberRepo);
   }
+
+  findByRoomId(roomId: string) {
+    return this.roomMemberRepo.find({ where: { roomId } });
+  }
+
+  findByUserId(userId: string) {
+    return this.roomMemberRepo.find({ where: { userId } });
+  }
 }

@@ -32,9 +32,7 @@ export const ForgotPasswordContext = React.createContext<ContextType>({
 });
 
 export function ForgotPasswordProvider({ children }: PropsWithChildren) {
-  const onSubmit = (values: Values, helpers: FormikHelpers<Values>) => {
-    console.log("values", values);
-  };
+  const onSubmit = (values: Values, helpers: FormikHelpers<Values>) => {};
 
   return (
     <ForgotPasswordContext.Provider

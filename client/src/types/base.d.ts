@@ -3,7 +3,12 @@ declare global {
     id: string;
     createdAt: Date;
     updatedAt: Date;
-  }
+  };
+
+  type PageProps = {
+    params: any;
+    searchParams: any;
+  };
 
   type Pagination<T> = {
     data: T[];

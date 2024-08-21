@@ -1,3 +1,4 @@
+import { MAX_WIDTH } from "@app/constants/style.constant";
 import { Flex, Text } from "@chakra-ui/react";
 
 type Props = {
@@ -21,7 +22,8 @@ function TopNav({ bgColor, color, paddingX, paddingY, zIndex, tab }: Props) {
       position="fixed"
       top="0"
       left={{ base: "0", lg: "50%" }}
-      width={{ base: "100%", lg: "33%" }}
+      w="100%"
+      maxW={MAX_WIDTH}
       transform={{ base: "none", lg: "translate(-50%)" }}
       alignItems="center"
       justify="center"

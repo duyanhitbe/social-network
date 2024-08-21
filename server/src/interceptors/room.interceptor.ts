@@ -52,7 +52,7 @@ export class RoomInterceptor implements NestInterceptor {
         if (method === 'FIND_ONE') {
           const room = { ...data } as Room | null;
 
-          if (!room) return room;
+          if (!room) return null;
 
           const member = room?.members?.find(
             (member) => member.userId !== userId,

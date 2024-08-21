@@ -7,7 +7,7 @@ type Props = {
 export default function ProfileHeader({ user }: Props) {
   return (
     <Box
-      maxWidth="400px"
+      maxWidth="100%"
       margin="0 auto"
       padding="2rem"
       bg="white"
@@ -15,7 +15,7 @@ export default function ProfileHeader({ user }: Props) {
       borderRadius="md"
       textAlign="center"
     >
-      <Avatar size="xl" name={user.name} mb="1rem" />
+      <Avatar size="xl" name={user.name} src={user.avatar} mb="1rem" />
       <Heading fontSize="2xl" mb="0.5rem">
         {user.name}
       </Heading>

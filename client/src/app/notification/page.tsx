@@ -31,8 +31,7 @@ export default function Page() {
   ];
 
   return (
-    <Box maxWidth="500px" margin="0 auto">
-      {/* Notifications List */}
+    <Box>
       {notifications.map((notification) => (
         <Flex
           key={notification.id}

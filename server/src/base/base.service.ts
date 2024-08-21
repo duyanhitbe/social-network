@@ -10,11 +10,15 @@ export class BaseService<T extends BaseEntity> {
   }
 
   async findAll(query?: GetAllQuery<T>) {
-    const { limit: take = 10, page = 1, where } = query || {};
-    const order = { createdAt: 'DESC' } as any;
-    const skip = take * (page - 1);
+    const {
+      limit: take = 10,
+      page = 1,
+      where,
+      order = { createdAt: 'DESC' } as any,
+    } = query || {};
+    const skip = take === -1 ? undefined : take * (page - 1);
     const [data, count] = await this.repo.findAndCount({
-      take,
+      take: take === -1 ? undefined : take,
       skip,
       where,
       order,

@@ -15,7 +15,7 @@ export const useGetMe = () => {
   const token = getToken();
 
   return useQuery({
-    queryKey: ["user/me"],
+    queryKey: ["user", "me"],
     queryFn: () => userService.getMe(token!),
   });
 };

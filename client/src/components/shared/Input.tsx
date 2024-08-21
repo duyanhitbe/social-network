@@ -15,7 +15,7 @@ import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 type Props = {
   id: string;
   name: string;
-  type?: "text" | "password" | "email";
+  type?: "text" | "password" | "email" | "file";
   label: string;
   placeholder?: string;
   isRequired?: boolean;

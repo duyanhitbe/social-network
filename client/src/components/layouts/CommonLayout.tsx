@@ -1,3 +1,4 @@
+import { MAX_WIDTH } from "@app/constants/style.constant";
 import { Box } from "@chakra-ui/react";
 import { headers } from "next/headers";
 import { PropsWithChildren } from "react";
@@ -22,7 +23,7 @@ export default function CommonLayout({ children }: PropsWithChildren) {
   })();
 
   return (
-    <>
+    <Box maxW={MAX_WIDTH} margin="0 auto" boxShadow="lg">
       <TopNav
         bgColor={bgColor}
         color={color}
@@ -48,6 +49,6 @@ export default function CommonLayout({ children }: PropsWithChildren) {
         zIndex={zIndex}
         tab={tab}
       />
-    </>
+    </Box>
   );
 }

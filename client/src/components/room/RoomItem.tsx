@@ -11,7 +11,6 @@ export default function RoomItem({ room }: Props) {
     <Link href={`/chat/${room.id}`}>
       <Flex
         padding="1rem"
-        borderRadius="md"
         bg="white"
         boxShadow="sm"
         _hover={{ bg: "gray.50" }}
