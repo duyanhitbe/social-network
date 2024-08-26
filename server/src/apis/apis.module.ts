@@ -6,6 +6,7 @@ import { RoomModule } from './room/room.module';
 import { RoomMemberModule } from './room-member/room-member.module';
 import { MessageModule } from './message/message.module';
 import { SocketModule } from './socket/socket.module';
+import { LikeModule } from './like/like.module';
 
 @Module({
 	imports: [
@@ -16,6 +17,7 @@ import { SocketModule } from './socket/socket.module';
 		RoomMemberModule,
 		MessageModule,
 		SocketModule,
+		LikeModule,
 	],
 })
 export class ApisModule {}

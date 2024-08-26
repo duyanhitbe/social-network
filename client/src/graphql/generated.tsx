@@ -24,6 +24,10 @@ export type Scalars = {
 	DateTime: { input: any; output: any };
 };
 
+export type CreateLikeInput = {
+	postId: Scalars['String']['input'];
+};
+
 export type CreatePostInput = {
 	body: Scalars['String']['input'];
 	image?: InputMaybe<Scalars['String']['input']>;
@@ -31,6 +35,22 @@ export type CreatePostInput = {
 
 export type CreateRoomInput = {
 	userId: Scalars['String']['input'];
+};
+
+export type Like = {
+	__typename?: 'Like';
+	createdAt: Scalars['DateTime']['output'];
+	id: Scalars['ID']['output'];
+	postId: Scalars['String']['output'];
+	updatedAt: Scalars['DateTime']['output'];
+	user?: Maybe<User>;
+	userId: Scalars['String']['output'];
+};
+
+export type LikePaginated = {
+	__typename?: 'LikePaginated';
+	data: Array<Like>;
+	pagination?: Maybe<Pagination>;
 };
 
 export type LoginUser = {
@@ -70,11 +90,14 @@ export type Mutation = {
 	__typename?: 'Mutation';
 	createPost: Post;
 	createRoom: Room;
+	deleteLike: Like;
 	deletePost: Post;
+	like: Like;
 	loginUser: LoginUser;
 	logoutUser: LogoutUser;
 	registerUser: RegisterUser;
 	removeRoom: Room;
+	updateLike: Like;
 	updatePost: Post;
 	updateRoom: Room;
 };
@@ -87,8 +110,16 @@ export type MutationCreateRoomArgs = {
 	data: CreateRoomInput;
 };
 
+export type MutationDeleteLikeArgs = {
+	id: Scalars['String']['input'];
+};
+
 export type MutationDeletePostArgs = {
 	id: Scalars['String']['input'];
+};
+
+export type MutationLikeArgs = {
+	data: CreateLikeInput;
 };
 
 export type MutationLoginUserArgs = {
@@ -100,6 +131,11 @@ export type MutationRegisterUserArgs = {
 };
 
 export type MutationRemoveRoomArgs = {
+	id: Scalars['String']['input'];
+};
+
+export type MutationUpdateLikeArgs = {
+	data: UpdateLikeInput;
 	id: Scalars['String']['input'];
 };
 
@@ -127,7 +163,9 @@ export type Post = {
 	createdAt: Scalars['DateTime']['output'];
 	id: Scalars['ID']['output'];
 	image?: Maybe<Scalars['String']['output']>;
+	isLiked: Scalars['Boolean']['output'];
 	likeCount: Scalars['Int']['output'];
+	likes: Array<Like>;
 	shareCount: Scalars['Int']['output'];
 	updatedAt: Scalars['DateTime']['output'];
 	user?: Maybe<User>;
@@ -149,6 +187,7 @@ export type Query = {
 	getAllUser: UserPaginated;
 	getOnePost?: Maybe<Post>;
 	getOneRoom: Room;
+	like: Like;
 	userGetMe: User;
 };
 
@@ -161,6 +200,10 @@ export type QueryGetOnePostArgs = {
 };
 
 export type QueryGetOneRoomArgs = {
+	id: Scalars['String']['input'];
+};
+
+export type QueryLikeArgs = {
 	id: Scalars['String']['input'];
 };
 
@@ -209,6 +252,10 @@ export enum RoomType {
 	Group = 'GROUP',
 	Private = 'PRIVATE',
 }
+
+export type UpdateLikeInput = {
+	postId?: InputMaybe<Scalars['String']['input']>;
+};
 
 export type UpdatePostInput = {
 	body?: InputMaybe<Scalars['String']['input']>;
@@ -261,6 +308,12 @@ export type LogoutUserMutation = {
 	logoutUser: { __typename?: 'LogoutUser'; message: string };
 };
 
+export type LikeMutationVariables = Exact<{
+	data: CreateLikeInput;
+}>;
+
+export type LikeMutation = { __typename?: 'Mutation'; like: { __typename?: 'Like'; id: string } };
+
 export type GetAllMessageByRoomQueryVariables = Exact<{
 	roomId: Scalars['String']['input'];
 }>;
@@ -301,6 +354,7 @@ export type GetAllPostQuery = {
 			likeCount: number;
 			commentCount: number;
 			shareCount: number;
+			isLiked: boolean;
 			user?: { __typename?: 'User'; name: string; avatar?: string | null } | null;
 		}>;
 		pagination?: {
@@ -556,6 +610,41 @@ export type LogoutUserMutationOptions = Apollo.BaseMutationOptions<
 	LogoutUserMutation,
 	LogoutUserMutationVariables
 >;
+export const LikeDocument = gql`
+	mutation Like($data: CreateLikeInput!) {
+		like(data: $data) {
+			id
+		}
+	}
+`;
+export type LikeMutationFn = Apollo.MutationFunction<LikeMutation, LikeMutationVariables>;
+
+/**
+ * __useLikeMutation__
+ *
+ * To run a mutation, you first call `useLikeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLikeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [likeMutation, { data, loading, error }] = useLikeMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useLikeMutation(
+	baseOptions?: Apollo.MutationHookOptions<LikeMutation, LikeMutationVariables>,
+) {
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useMutation<LikeMutation, LikeMutationVariables>(LikeDocument, options);
+}
+export type LikeMutationHookResult = ReturnType<typeof useLikeMutation>;
+export type LikeMutationResult = Apollo.MutationResult<LikeMutation>;
+export type LikeMutationOptions = Apollo.BaseMutationOptions<LikeMutation, LikeMutationVariables>;
 export const GetAllMessageByRoomDocument = gql`
 	query GetAllMessageByRoom($roomId: String!) {
 		getAllMessageByRoom(roomId: $roomId) {
@@ -654,6 +743,7 @@ export const GetAllPostDocument = gql`
 				likeCount
 				commentCount
 				shareCount
+				isLiked
 				user {
 					name
 					avatar
@@ -1217,11 +1307,14 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
 	Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+	CreateLikeInput: CreateLikeInput;
 	CreatePostInput: CreatePostInput;
 	CreateRoomInput: CreateRoomInput;
 	DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
 	ID: ResolverTypeWrapper<Scalars['ID']['output']>;
 	Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+	Like: ResolverTypeWrapper<Like>;
+	LikePaginated: ResolverTypeWrapper<LikePaginated>;
 	LoginUser: ResolverTypeWrapper<LoginUser>;
 	LoginUserInput: LoginUserInput;
 	LogoutUser: ResolverTypeWrapper<LogoutUser>;
@@ -1239,6 +1332,7 @@ export type ResolversTypes = {
 	RoomPaginated: ResolverTypeWrapper<RoomPaginated>;
 	RoomType: RoomType;
 	String: ResolverTypeWrapper<Scalars['String']['output']>;
+	UpdateLikeInput: UpdateLikeInput;
 	UpdatePostInput: UpdatePostInput;
 	UpdateRoomInput: UpdateRoomInput;
 	User: ResolverTypeWrapper<User>;
@@ -1248,11 +1342,14 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
 	Boolean: Scalars['Boolean']['output'];
+	CreateLikeInput: CreateLikeInput;
 	CreatePostInput: CreatePostInput;
 	CreateRoomInput: CreateRoomInput;
 	DateTime: Scalars['DateTime']['output'];
 	ID: Scalars['ID']['output'];
 	Int: Scalars['Int']['output'];
+	Like: Like;
+	LikePaginated: LikePaginated;
 	LoginUser: LoginUser;
 	LoginUserInput: LoginUserInput;
 	LogoutUser: LogoutUser;
@@ -1269,6 +1366,7 @@ export type ResolversParentTypes = {
 	RoomMember: RoomMember;
 	RoomPaginated: RoomPaginated;
 	String: Scalars['String']['output'];
+	UpdateLikeInput: UpdateLikeInput;
 	UpdatePostInput: UpdatePostInput;
 	UpdateRoomInput: UpdateRoomInput;
 	User: User;
@@ -1279,6 +1377,29 @@ export interface DateTimeScalarConfig
 	extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
 	name: 'DateTime';
 }
+
+export type LikeResolvers<
+	ContextType = any,
+	ParentType extends ResolversParentTypes['Like'] = ResolversParentTypes['Like'],
+> = {
+	createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+	id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+	postId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+	updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+	user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+	userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+	__isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type LikePaginatedResolvers<
+	ContextType = any,
+	ParentType extends
+		ResolversParentTypes['LikePaginated'] = ResolversParentTypes['LikePaginated'],
+> = {
+	data?: Resolver<Array<ResolversTypes['Like']>, ParentType, ContextType>;
+	pagination?: Resolver<Maybe<ResolversTypes['Pagination']>, ParentType, ContextType>;
+	__isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
 
 export type LoginUserResolvers<
 	ContextType = any,
@@ -1337,11 +1458,23 @@ export type MutationResolvers<
 		ContextType,
 		RequireFields<MutationCreateRoomArgs, 'data'>
 	>;
+	deleteLike?: Resolver<
+		ResolversTypes['Like'],
+		ParentType,
+		ContextType,
+		RequireFields<MutationDeleteLikeArgs, 'id'>
+	>;
 	deletePost?: Resolver<
 		ResolversTypes['Post'],
 		ParentType,
 		ContextType,
 		RequireFields<MutationDeletePostArgs, 'id'>
+	>;
+	like?: Resolver<
+		ResolversTypes['Like'],
+		ParentType,
+		ContextType,
+		RequireFields<MutationLikeArgs, 'data'>
 	>;
 	loginUser?: Resolver<
 		ResolversTypes['LoginUser'],
@@ -1361,6 +1494,12 @@ export type MutationResolvers<
 		ParentType,
 		ContextType,
 		RequireFields<MutationRemoveRoomArgs, 'id'>
+	>;
+	updateLike?: Resolver<
+		ResolversTypes['Like'],
+		ParentType,
+		ContextType,
+		RequireFields<MutationUpdateLikeArgs, 'data' | 'id'>
 	>;
 	updatePost?: Resolver<
 		ResolversTypes['Post'],
@@ -1395,7 +1534,9 @@ export type PostResolvers<
 	createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
 	id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
 	image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+	isLiked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
 	likeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+	likes?: Resolver<Array<ResolversTypes['Like']>, ParentType, ContextType>;
 	shareCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
 	updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
 	user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
@@ -1438,6 +1579,12 @@ export type QueryResolvers<
 		ParentType,
 		ContextType,
 		RequireFields<QueryGetOneRoomArgs, 'id'>
+	>;
+	like?: Resolver<
+		ResolversTypes['Like'],
+		ParentType,
+		ContextType,
+		RequireFields<QueryLikeArgs, 'id'>
 	>;
 	userGetMe?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
 };
@@ -1515,6 +1662,8 @@ export type UserPaginatedResolvers<
 
 export type Resolvers<ContextType = any> = {
 	DateTime?: GraphQLScalarType;
+	Like?: LikeResolvers<ContextType>;
+	LikePaginated?: LikePaginatedResolvers<ContextType>;
 	LoginUser?: LoginUserResolvers<ContextType>;
 	LogoutUser?: LogoutUserResolvers<ContextType>;
 	Message?: MessageResolvers<ContextType>;

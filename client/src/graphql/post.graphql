@@ -8,6 +8,7 @@ query GetAllPost {
 			likeCount
 			commentCount
 			shareCount
+			isLiked
 			user {
 				name
 				avatar

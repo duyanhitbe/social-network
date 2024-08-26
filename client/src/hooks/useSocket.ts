@@ -1,24 +1,24 @@
-import { getToken } from "@app/helpers/localStorage.helper";
-import { useEffect, useState } from "react";
-import { io, Socket } from "socket.io-client";
+import { getToken } from '@app/helpers/localStorage.helper';
+import { useEffect, useState } from 'react';
+import { io, Socket } from 'socket.io-client';
 
 export const useSocket = (): Socket | undefined => {
-  const [socket, setSocket] = useState<Socket>();
+	const [socket, setSocket] = useState<Socket>();
 
-  useEffect(() => {
-    const socketIo = io("http://localhost:3000/chat", {
-      extraHeaders: {
-        Authorization: `Bearer ${getToken()}`,
-      },
-    });
+	useEffect(() => {
+		const socketIo = io('http://localhost:3000/chat', {
+			extraHeaders: {
+				Authorization: `Bearer ${getToken()}`,
+			},
+		});
 
-    setSocket(socketIo as any);
+		setSocket(socketIo as any);
 
-    function cleanup() {
-      socketIo.disconnect();
-    }
-    return cleanup;
-  }, []);
+		function cleanup() {
+			socketIo.disconnect();
+		}
+		return cleanup;
+	}, []);
 
-  return socket;
+	return socket;
 };
