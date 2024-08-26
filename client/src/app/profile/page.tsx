@@ -1,16 +1,17 @@
-import { getTokenAction } from "@app/actions/getToken.action";
-import ProfileGroupButton from "@app/components/profile/ProfileGroupButton";
-import ProfileHeader from "@app/components/profile/ProfileHeader";
-import userService from "@app/services/user.service";
+import ProfileGroupButton from '@app/components/profile/ProfileGroupButton';
+import ProfileHeader from '@app/components/profile/ProfileHeader';
+import { UserGetMeDocument, UserGetMeQuery } from '@app/graphql/generated';
+import { query } from '../../apollo/server';
 
 export default async function Page() {
-  const token = getTokenAction();
-  const user = await userService.getMe(token!);
+	const { data } = await query<UserGetMeQuery>({
+		query: UserGetMeDocument,
+	});
 
-  return (
-    <>
-      <ProfileHeader user={user} />
-      <ProfileGroupButton />
-    </>
-  );
+	return (
+		<>
+			<ProfileHeader user={data.userGetMe as any} />
+			<ProfileGroupButton />
+		</>
+	);
 }

@@ -1,4 +1,7 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateRoomDto } from './create-room.dto';
+import { InputType, PartialType } from '@nestjs/graphql';
+import { CreateRoomInput } from './create-room.dto';
 
-export class UpdateRoomDto extends PartialType(CreateRoomDto) {}
+export class UpdateRoomDto {}
+
+@InputType()
+export class UpdateRoomInput extends PartialType(CreateRoomInput) {}

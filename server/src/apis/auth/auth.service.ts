@@ -3,20 +3,20 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  private secret = 'supersecret';
+	private secret = 'supersecret';
 
-  constructor(private readonly jwtService: JwtService) {}
+	constructor(private readonly jwtService: JwtService) {}
 
-  get options() {
-    return { secret: this.secret };
-  }
+	get options() {
+		return { secret: this.secret };
+	}
 
-  generateToken(sub: string) {
-    const payload = { sub };
-    return this.jwtService.signAsync(payload, this.options);
-  }
+	generateToken(sub: string) {
+		const payload = { sub };
+		return this.jwtService.signAsync(payload, this.options);
+	}
 
-  verifyToken(token: string) {
-    return this.jwtService.verifyAsync(token, this.options);
-  }
+	verifyToken(token: string) {
+		return this.jwtService.verifyAsync(token, this.options);
+	}
 }

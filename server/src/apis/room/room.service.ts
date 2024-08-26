@@ -6,9 +6,7 @@ import { Room } from './entities/room.entity';
 
 @Injectable()
 export class RoomService extends BaseService<Room> {
-  constructor(
-    @InjectRepository(Room) private readonly roomRepo: Repository<Room>,
-  ) {
-    super(roomRepo);
-  }
+	constructor(@InjectRepository(Room) private readonly roomRepo: Repository<Room>) {
+		super(roomRepo);
+	}
 }

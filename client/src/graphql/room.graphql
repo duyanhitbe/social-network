@@ -1,0 +1,27 @@
+query GetAllRoom {
+	getAllRoom {
+		data {
+			id
+			name
+			avatar
+			lastMessage
+			type
+			timestamp
+			members {
+				id
+				userId
+			}
+		}
+		pagination {
+			limit
+			page
+			total
+		}
+	}
+}
+
+mutation CreateRoom($data: CreateRoomInput!) {
+	createRoom(data: $data) {
+		id
+	}
+}

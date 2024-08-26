@@ -6,10 +6,10 @@ import { Message } from './entities/message.entity';
 
 @Injectable()
 export class MessageService extends BaseService<Message> {
-  constructor(
-    @InjectRepository(Message)
-    private readonly messageRepo: Repository<Message>,
-  ) {
-    super(messageRepo);
-  }
+	constructor(
+		@InjectRepository(Message)
+		private readonly messageRepo: Repository<Message>,
+	) {
+		super(messageRepo);
+	}
 }

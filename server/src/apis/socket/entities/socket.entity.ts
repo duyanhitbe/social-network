@@ -4,13 +4,13 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity({ name: 'sockets' })
 export class Socket extends BaseEntity {
-  @Column()
-  clientId!: string;
+	@Column()
+	clientId!: string;
 
-  @Column()
-  userId!: string;
+	@Column()
+	userId!: string;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'userId' })
-  user?: User;
+	@ManyToOne(() => User)
+	@JoinColumn({ name: 'userId' })
+	user?: User;
 }

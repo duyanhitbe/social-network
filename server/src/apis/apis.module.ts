@@ -8,6 +8,14 @@ import { MessageModule } from './message/message.module';
 import { SocketModule } from './socket/socket.module';
 
 @Module({
-    imports: [AuthModule, UserModule, PostModule, RoomModule, RoomMemberModule, MessageModule, SocketModule]
+	imports: [
+		AuthModule,
+		UserModule,
+		PostModule,
+		RoomModule,
+		RoomMemberModule,
+		MessageModule,
+		SocketModule,
+	],
 })
 export class ApisModule {}

@@ -6,17 +6,15 @@ import { Socket } from './entities/socket.entity';
 
 @Injectable()
 export class SocketService extends BaseService<Socket> {
-  constructor(
-    @InjectRepository(Socket) private readonly socketRepo: Repository<Socket>,
-  ) {
-    super(socketRepo);
-  }
+	constructor(@InjectRepository(Socket) private readonly socketRepo: Repository<Socket>) {
+		super(socketRepo);
+	}
 
-  removeByClientId(clientId: string) {
-    return this.socketRepo.delete({ clientId });
-  }
+	removeByClientId(clientId: string) {
+		return this.socketRepo.delete({ clientId });
+	}
 
-  findByUserIds(userIds: string[]) {
-    return this.socketRepo.find({ where: { userId: In(userIds) } });
-  }
+	findByUserIds(userIds: string[]) {
+		return this.socketRepo.find({ where: { userId: In(userIds) } });
+	}
 }

@@ -1,31 +1,38 @@
+import { Field, ObjectType } from '@nestjs/graphql';
 import { hash } from 'argon2';
 import { Exclude } from 'class-transformer';
+import { PaginatedData } from 'src/base/base.dto';
 import { BaseEntity } from 'src/base/base.entity';
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, Column, Entity } from 'typeorm';
 
+@ObjectType()
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id!: string;
+	@Column()
+	@Field(() => String)
+	name!: string;
 
-  @Column()
-  name!: string;
+	@Column()
+	@Field(() => String)
+	username!: string;
 
-  @Column()
-  username!: string;
+	@Column({ nullable: true })
+	@Field(() => String, { nullable: true })
+	avatar?: string;
 
-  @Column({ nullable: true })
-  avatar?: string;
+	@Column()
+	@Exclude()
+	password!: string;
 
-  @Column()
-  @Exclude()
-  password!: string;
+	@Column()
+	@Field(() => String)
+	email!: string;
 
-  @Column()
-  email!: string;
-
-  @BeforeInsert()
-  async beforeInsert() {
-    this.password = await hash(this.password);
-  }
+	@BeforeInsert()
+	async beforeInsert() {
+		this.password = await hash(this.password);
+	}
 }
+
+@ObjectType()
+export class UserPaginated extends PaginatedData(User) {}

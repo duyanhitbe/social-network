@@ -6,18 +6,18 @@ import { RoomMember } from './entities/room-member.entity';
 
 @Injectable()
 export class RoomMemberService extends BaseService<RoomMember> {
-  constructor(
-    @InjectRepository(RoomMember)
-    private readonly roomMemberRepo: Repository<RoomMember>,
-  ) {
-    super(roomMemberRepo);
-  }
+	constructor(
+		@InjectRepository(RoomMember)
+		private readonly roomMemberRepo: Repository<RoomMember>,
+	) {
+		super(roomMemberRepo);
+	}
 
-  findByRoomId(roomId: string) {
-    return this.roomMemberRepo.find({ where: { roomId } });
-  }
+	findByRoomId(roomId: string) {
+		return this.roomMemberRepo.find({ where: { roomId } });
+	}
 
-  findByUserId(userId: string) {
-    return this.roomMemberRepo.find({ where: { userId } });
-  }
+	findByUserId(userId: string) {
+		return this.roomMemberRepo.find({ where: { userId } });
+	}
 }

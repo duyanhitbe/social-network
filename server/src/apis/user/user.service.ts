@@ -6,16 +6,16 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService extends BaseService<User> {
-  constructor(
-    @InjectRepository(User)
-    private readonly userRepo: Repository<User>,
-    @InjectDataSource()
-    private readonly datasource: DataSource,
-  ) {
-    super(userRepo);
-  }
+	constructor(
+		@InjectRepository(User)
+		private readonly userRepo: Repository<User>,
+		@InjectDataSource()
+		private readonly datasource: DataSource,
+	) {
+		super(userRepo);
+	}
 
-  findOneByUsername(username: string) {
-    return this.userRepo.findOneBy({ username });
-  }
+	findOneByUsername(username: string) {
+		return this.userRepo.findOneBy({ username });
+	}
 }

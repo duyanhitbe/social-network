@@ -1,4 +1,7 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreatePostDto } from './create-post.dto';
+import { InputType, PartialType } from '@nestjs/graphql';
+import { CreatePostInput } from './create-post.dto';
 
-export class UpdatePostDto extends PartialType(CreatePostDto) {}
+export class UpdatePostDto {}
+
+@InputType()
+export class UpdatePostInput extends PartialType(CreatePostInput) {}

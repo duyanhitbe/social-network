@@ -9,14 +9,14 @@ import { SocketGateway } from './socket.gateway';
 import { SocketService } from './socket.service';
 
 @Module({
-  imports: [
-    UserModule,
-    RoomModule,
-    RoomMemberModule,
-    MessageModule,
-    TypeOrmModule.forFeature([Socket]),
-  ],
-  providers: [SocketService, SocketGateway],
-  exports: [SocketService],
+	imports: [
+		UserModule,
+		RoomModule,
+		RoomMemberModule,
+		MessageModule,
+		TypeOrmModule.forFeature([Socket]),
+	],
+	providers: [SocketService, SocketGateway],
+	exports: [SocketService],
 })
 export class SocketModule {}

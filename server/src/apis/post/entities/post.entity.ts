@@ -1,28 +1,41 @@
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { User } from 'src/apis/user/entities/user.entity';
+import { PaginatedData } from 'src/base/base.dto';
 import { BaseEntity } from 'src/base/base.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity({ name: 'posts' })
+@ObjectType()
 export class Post extends BaseEntity {
-  @Column()
-  body!: string;
+	@Column()
+	@Field(() => String)
+	body!: string;
 
-  @Column({ nullable: true })
-  image?: string;
+	@Column({ nullable: true })
+	@Field(() => String, { nullable: true })
+	image?: string;
 
-  @Column({ default: 0 })
-  likeCount!: number;
+	@Column({ default: 0 })
+	@Field(() => Int)
+	likeCount!: number;
 
-  @Column({ default: 0 })
-  commentCount!: number;
+	@Column({ default: 0 })
+	@Field(() => Int)
+	commentCount!: number;
 
-  @Column({ default: 0 })
-  shareCount!: number;
+	@Column({ default: 0 })
+	@Field(() => Int)
+	shareCount!: number;
 
-  @Column()
-  userId!: string;
+	@Column()
+	@Field(() => String)
+	userId!: string;
 
-  @ManyToOne(() => User, { eager: true })
-  @JoinColumn({ name: 'userId' })
-  user?: User;
+	@ManyToOne(() => User, { eager: true })
+	@JoinColumn({ name: 'userId' })
+	@Field(() => User, { nullable: true })
+	user?: User;
 }
+
+@ObjectType()
+export class PostPaginated extends PaginatedData(Post) {}

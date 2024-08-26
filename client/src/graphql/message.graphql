@@ -1,0 +1,20 @@
+query GetAllMessageByRoom($roomId: String!) {
+	getAllMessageByRoom(roomId: $roomId) {
+		data {
+			id
+			createdAt
+			text
+			isOwnMessage
+			user {
+				id
+				name
+				avatar
+			}
+		}
+		pagination {
+			limit
+			page
+			total
+		}
+	}
+}

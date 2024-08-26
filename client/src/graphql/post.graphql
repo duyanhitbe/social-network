@@ -1,0 +1,57 @@
+query GetAllPost {
+	getAllPost {
+		data {
+			id
+			createdAt
+			body
+			image
+			likeCount
+			commentCount
+			shareCount
+			user {
+				name
+				avatar
+			}
+		}
+		pagination {
+			limit
+			page
+			total
+		}
+	}
+}
+
+query GetOnePost($id: String!) {
+	getOnePost(id: $id) {
+		id
+		createdAt
+		body
+		image
+		likeCount
+		commentCount
+		shareCount
+		user {
+			id
+			name
+			avatar
+		}
+	}
+}
+
+mutation CreatePost($data: CreatePostInput!) {
+	createPost(data: $data) {
+		id
+	}
+}
+
+mutation UpdatePost($id: String!, $data: UpdatePostInput!) {
+	updatePost(id: $id, data: $data) {
+		id
+	}
+}
+
+mutation DeletePost($id: String!) {
+	deletePost(id: $id) {
+		id
+	}
+}
